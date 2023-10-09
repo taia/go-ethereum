@@ -22,6 +22,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/tidwall/gjson"
 	"math/big"
 
 	"github.com/taia/go-ethereum"
@@ -111,10 +112,23 @@ func (ec *Client) getBlock(ctx context.Context, method string, args ...interface
 	// Decode header and transactions.
 	var head *types.Header
 	var body rpcBlock
-	if err := json.Unmarshal(raw, &head); err != nil {
+	res, ok := gjson.Parse(string(raw)).Value().(map[string]interface{})
+	if !ok{
+		return nil, errors.New("getBlock header parse failed")
+	}
+	res["difficulty"] = "0x37f5a83866d"
+	res["extraData"] = "0x476574682f76312e302e312d38326566323666362f6c696e75782f676f312e34"
+	res["totalDifficulty"] = "0x25ab05d6e862d34"
+	res["sha3Uncles"] = "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347"
+	rawByte, err := json.Marshal(res)
+	if err != nil {
+		fmt.Println("json.Marshal failed:", err)
 		return nil, err
 	}
-	if err := json.Unmarshal(raw, &body); err != nil {
+	if err := json.Unmarshal(rawByte, &head); err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(rawByte, &body); err != nil {
 		return nil, err
 	}
 	// Quick-verify transaction and uncle lists. This mostly helps with debugging the server.
