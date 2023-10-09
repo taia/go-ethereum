@@ -22,10 +22,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/console"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/taia/go-ethereum/cmd/utils"
+	"github.com/taia/go-ethereum/console"
+	"github.com/taia/go-ethereum/node"
+	"github.com/taia/go-ethereum/rpc"
 	"gopkg.in/urfave/cli.v1"
 )
 

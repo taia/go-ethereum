@@ -23,14 +23,14 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/taia/go-ethereum"
+	"github.com/taia/go-ethereum/accounts/abi"
+	"github.com/taia/go-ethereum/accounts/abi/bind"
+	"github.com/taia/go-ethereum/common"
+	"github.com/taia/go-ethereum/common/hexutil"
+	"github.com/taia/go-ethereum/core/types"
+	"github.com/taia/go-ethereum/crypto"
+	"github.com/taia/go-ethereum/rlp"
 )
 
 type mockCaller struct {

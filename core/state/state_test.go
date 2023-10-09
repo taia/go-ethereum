@@ -21,10 +21,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/ethdb"
+	"github.com/taia/go-ethereum/common"
+	"github.com/taia/go-ethereum/core/rawdb"
+	"github.com/taia/go-ethereum/crypto"
+	"github.com/taia/go-ethereum/ethdb"
 )
 
 type stateTest struct {

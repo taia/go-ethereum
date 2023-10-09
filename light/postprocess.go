@@ -26,16 +26,16 @@ import (
 	"time"
 
 	mapset "github.com/deckarep/golang-set"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/bitutil"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/taia/go-ethereum/common"
+	"github.com/taia/go-ethereum/common/bitutil"
+	"github.com/taia/go-ethereum/core"
+	"github.com/taia/go-ethereum/core/rawdb"
+	"github.com/taia/go-ethereum/core/types"
+	"github.com/taia/go-ethereum/ethdb"
+	"github.com/taia/go-ethereum/log"
+	"github.com/taia/go-ethereum/params"
+	"github.com/taia/go-ethereum/rlp"
+	"github.com/taia/go-ethereum/trie"
 )
 
 // IndexerConfig includes a set of configs for chain indexers.
