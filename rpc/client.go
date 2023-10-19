@@ -22,9 +22,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/taia/go-ethereum/core/types"
+	"github.com/tidwall/gjson"
+	"math/big"
 	"net/url"
 	"reflect"
 	"strconv"
+	"strings"
 	"sync/atomic"
 	"time"
 
@@ -317,6 +321,44 @@ func (c *Client) CallContext(ctx context.Context, result interface{}, method str
 		return ErrNoResult
 	default:
 		return json.Unmarshal(resp.Result, &result)
+	}
+}
+
+
+func (c *Client) CallTransactionReceiptContext(ctx context.Context, method string, args ...interface{}) (*types.Receipt, error) {
+	msg, err := c.newMessage(method, args...)
+	if err != nil {
+		return nil, err
+	}
+	op := &requestOp{ids: []json.RawMessage{msg.ID}, resp: make(chan *jsonrpcMessage, 1)}
+
+	if c.isHTTP {
+		err = c.sendHTTP(ctx, op, msg)
+	} else {
+		err = c.send(ctx, op, msg)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	// dispatch has accepted the request and will close the channel when it quits.
+	switch resp, err := op.wait(ctx, c); {
+	case err != nil:
+		return nil, err
+	case resp.Error != nil:
+		return nil, resp.Error
+	case len(resp.Result) == 0:
+		return nil, ErrNoResult
+	default:
+		status := gjson.Parse(string(resp.Result)).Get("status").String()
+		numberStr := strings.Replace(status,"0x","", -1)
+		numberStr = strings.Replace(numberStr,"0X","", -1)
+		bigNum := new(big.Int)
+		bigNum.SetString(numberStr, 16)
+		result := &types.Receipt{
+			Status: bigNum.Uint64(),
+		}
+		return result, nil
 	}
 }
 
